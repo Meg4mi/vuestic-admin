@@ -1,8 +1,6 @@
 <template>
   <aside class="sidebar">
-    <vue-scrollbar class="scroll-area" ref="Scrollbar" id="sidebar-scrollbar"
-                   v-expandable="{refs: $refs, menuItems: menuItems, childClassName: 'sidebar-submenu',
-                   parentId: 'sidebar-scrollbar', childHeight: 48}">
+    <vuestic-scrollbar>
       <ul class="sidebar-menu">
         <li v-for="(item, index) in menuItems">
           <router-link :to="item.path"
@@ -22,7 +20,7 @@
             <i class="expand-icon fa fa-angle-down"></i>
           </a>
           <expanding>
-            <ul class="sidebar-submenu" v-show="item.meta.expanded">
+            <ul class="sidebar-submenu in" v-show="item.meta.expanded">
               <li v-for="childItem in item.children">
                 <router-link :to="childItem.path" class="sidebar-link sidebar-submenu-link">
                   {{childItem.meta.title}}
@@ -32,25 +30,21 @@
           </expanding>
         </li>
       </ul>
-    </vue-scrollbar>
+    </vuestic-scrollbar>
   </aside>
 </template>
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import Expanding from '../../../../node_modules/vue-bulma-expanding/src/Expanding'
-  import VueScrollbar from '../../vuestic-components/vue2-scrollbar-custom/vue-scrollbar.vue'
-  import Expandable from '../../../directives/Expandable'
+  import VuesticScrollbar from '../../vuestic-components/vuestic-scrollbar/VuesticScrollbar'
 
   export default {
     name: 'sidebar',
 
     components: {
       Expanding,
-      VueScrollbar
-    },
-    directives: {
-      Expandable
+      VuesticScrollbar
     },
     computed: mapGetters({
       menuItems: 'menuItems'
@@ -113,14 +107,13 @@
     }
 
     height: $sidebar-viewport-height;
-    .scroll-area {
-      background: $sidebar-bg;
-      box-shadow: $sidebar-box-shadow;
-      max-height: 100%;
-      z-index: 4;
-      .vue-scrollbar__scrollbar-vertical {
-        width: .25rem;
-        visibility: visible;
+    .vuestic-scrollbar {
+      height: 100%;
+      .scrollbar-wrapper {
+        box-shadow: $sidebar-box-shadow;
+      }
+      .scrollbar-content {
+        background: $sidebar-bg;
       }
     }
 
@@ -162,7 +155,7 @@
         color: $white;
         background-color: $sidebar-link-active-bg;
 
-        .sidebar-menu-item-icon {
+        .sidebar-menu-item-icon, .expand-icon {
           color: $white;
         }
       }
@@ -183,7 +176,7 @@
 
       .sidebar-menu-item-icon {
         font-size: $sidebar-menu-item-icon-size;
-        color: #000;
+        color: $vue-green;
         margin-right: 14px;
 
         &.fa-dashboard {       /* Temp fix */
@@ -217,6 +210,15 @@
     .sidebar-menu {
       max-height: 100%;
       margin-bottom: 0;
+    }
+
+    .expand-icon {
+      color: $vue-green
+    }
+
+    a {
+      color: $white;
+      text-decoration: none;
     }
   }
 </style>

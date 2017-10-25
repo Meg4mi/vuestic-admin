@@ -6,14 +6,16 @@
       <i class="ion-chevron-down arrow-down"></i>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" v-for="option in options" @click="selectedItemsPerPage(option.value)">{{option.value}} per page</a>
+      <div class="dropdown-menu-content">
+        <a class="dropdown-item" v-for="option in options" @click="selectedItemsPerPage(option.value)">{{option.value}} per page</a>
+      </div>
     </div>
   </div>
 
 </template>
 
 <script>
-  import Dropdown from 'directives/Dropdown'
+  import Dropdown from '../../../../directives/Dropdown'
 
   export default {
     directives: {
@@ -43,7 +45,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../sass/variables";
+  @import "../../../../sass/variables";
 
   .btn.dropdown-toggle, .dropdown-menu {
     min-width: 13rem;

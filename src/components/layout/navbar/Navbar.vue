@@ -20,52 +20,58 @@
 
       <div class="offset-lg-8"></div>
       <div class="col nav-item dropdown navbar-dropdown d-flex align-items-center justify-content-center" v-dropdown>
-        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content" href="#">
+        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content" href="#" @click.prevent="closeMenu">
           <span class="i-nav-messages notify"></span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">
-          <span class="ellipsis">New messages from Oleg M</span>
-        </a>
-          <a class="dropdown-item" href="#">
-            <span class="ellipsis">New messages from Andrei H</span>
-          </a>
-          <div class="dropdown-item plain-link-item">
-            <a class="plain-link" href="#">See all messages</a>
+          <div class="dropdown-menu-content">
+            <a class="dropdown-item" href="#">
+              <span class="ellipsis">New messages from Oleg M</span>
+            </a>
+            <a class="dropdown-item" href="#">
+              <span class="ellipsis">New messages from Andrei H</span>
+            </a>
+            <div class="dropdown-item plain-link-item">
+              <a class="plain-link" href="#">See all messages</a>
+            </div>
           </div>
         </div>
       </div>
       <div class="col nav-item dropdown navbar-dropdown d-flex align-items-center justify-content-center" v-dropdown>
-        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content" href="#">
+        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content" href="#" @click.prevent="closeMenu">
           <span class="i-nav-notification notify"></span>
         </a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">
-          <span class="ellipsis">Vasily S sent you a message</span>
-        </a>
-            <a class="dropdown-item" href="#">
-          <span class="ellipsis">Oleg M uploaded new Zip file with typography component</span>
-        </a>
-            <a class="dropdown-item" href="#">
-          <span class="ellipsis">Andrei H started a new topic</span>
-        </a>
-          <div class="dropdown-item plain-link-item">
-            <a class="plain-link" href="#">See all notifications</a>
+          <div class="dropdown-menu-content">
+            <a class="dropdown-item" href="#">
+              <span class="ellipsis">Vasily S sent you a message</span>
+            </a>
+            <a class="dropdown-item" href="#">
+              <span class="ellipsis">Oleg M uploaded new Zip file with typography component</span>
+            </a>
+            <a class="dropdown-item" href="#">
+              <span class="ellipsis">Andrei H started a new topic</span>
+            </a>
+            <div class="dropdown-item plain-link-item">
+              <a class="plain-link" href="#">See all notifications</a>
+            </div>
           </div>
         </div>
       </div>
       <div class="col nav-item dropdown navbar-dropdown d-flex align-items-center justify-content-center" v-dropdown>
-        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content" href="#">
+        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content" href="#" @click.prevent="closeMenu">
           <span class="avatar-container">
-            <img src="http://i.imgur.com/UTc7Fne.png" />
+            <img src="http://i.imgur.com/nfa5itq.png" />
           </span>
         </a>
-        <div class="dropdown-menu">
-          <div class="dropdown-item plain-link-item">
-            <a class="plain-link" href="#">My Profile</a>
-          </div>
-          <div class="dropdown-item plain-link-item">
-            <a class="plain-link" href="#">Logout</a>
+        <div class="dropdown-menu last">
+          <div class="dropdown-menu-content">
+            <div class="dropdown-item plain-link-item">
+              <a class="plain-link" href="#">My Profile</a>
+            </div>
+            <div class="dropdown-item plain-link-item">
+              <a class="plain-link" href="#">Logout</a>
+            </div>
           </div>
         </div>
       </div>
@@ -90,6 +96,7 @@
     ]),
     methods: {
       ...mapActions([
+        'closeMenu',
         'toggleSidebar',
         'isToggleWithoutAnimation'
       ])
@@ -156,13 +163,15 @@
       }
 
       &.show {
-        .dropdown-menu {
-          left: auto;
-          right: 0;
+        @include media-breakpoint-up(lg) {
+          .dropdown-menu {
+            left: auto;
+            right: 0;
+          }
         }
         &:after {
            position: absolute;
-           bottom: -16px;
+           bottom: -$dropdown-show-b;
            right: calc(50% - 10px);
            width: 0;
            height: 0;
@@ -175,8 +184,9 @@
       }
 
       .dropdown-menu {
-        margin-top: 15px;
-        max-width: 345px;
+        margin-top: $dropdown-show-b;
+        padding-top: 0;
+        width: 100%;
       }
 
 
@@ -241,14 +251,18 @@
 
       .dropdown.navbar-dropdown {
         &.show {
+          display: flex;
           &:after {
-            bottom: $dropdown-mobile-show-b;
+            bottom: -$dropdown-mobile-show-b;
             z-index: 2;
           }
-        }
-
-        .dropdown-menu {
-          margin-top: $droppdown-mobile-mp;
+          .dropdown-menu {
+            margin-top: $dropdown-mobile-show-b;
+            left: auto;
+            &.last {
+              right: 0;
+            }
+          }
         }
       }
     }

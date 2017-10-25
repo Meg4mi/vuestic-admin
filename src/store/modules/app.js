@@ -27,6 +27,11 @@ const state = {
 }
 
 const mutations = {
+  [types.CLOSE_MENU] (state) {
+    if (document.documentElement.clientWidth < 992) {
+      state.sidebar.opened = false
+    }
+  },
   [types.TOGGLE_SIDEBAR] (state, opened) {
     state.sidebar.opened = opened
   },
@@ -39,6 +44,9 @@ const mutations = {
 }
 
 const actions = {
+  closeMenu ({ commit }) {
+    commit(types.CLOSE_MENU)
+  },
   toggleSidebar ({ commit }, opened) {
     commit(types.TOGGLE_SIDEBAR, opened)
   },

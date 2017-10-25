@@ -87,6 +87,8 @@
     padding: $chat-message-py $chat-message-px;
     margin-bottom: $chat-message-mb;
     border-radius: $chat-message-br;
+    max-width: 70%;
+    overflow-wrap: break-word;
 
     &:last-child {
       margin-bottom: 0;
@@ -102,6 +104,10 @@
       align-self: flex-end;
       border-top-right-radius: 0;
       background-color: $brand-primary;
+    }
+
+    .chat-message-input {
+      resize: vertical !important;
     }
   }
 
